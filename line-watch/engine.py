@@ -10,11 +10,17 @@ class RegexEngine:
             return True
         
         for window_current_index in range(line_length - pattern_length + 1):
-            is_pattern_matched = True
-            for pattern_current_index in range(pattern_length):
-                if current_line[window_current_index + pattern_current_index] != self.pattern[pattern_current_index]:
-                    is_pattern_matched = False
-                    break
-            if is_pattern_matched:
+            if self.match_at_position(line_text, window_current_index):
                 return True
+
         return False
+    
+    def match_at_specific_position(self, line_text: str, start_index: int) -> bool:
+        for pattern_index in range(len(self.pattern)):
+            line_index = start_index + pattern_index
+            line_character = line_text[line_index]
+            pattern_character = self.pattern[pattern_index]
+
+            if pattern_character != '.' and pattern_character != line_character:
+                return False
+        return True
