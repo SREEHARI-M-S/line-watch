@@ -22,5 +22,27 @@ class TestRegexEngine(unittest.TestCase):
         engine = RegexEngine("a.c")
         self.assertTrue(engine.match_at_position("a9c"), 0)
 
+    def test_start_anchor(self):
+        engine = RegexEngine("^hello")
+        self.assertTrue(engine.match_current_line("hello world"))
+        self.assertFalse(engine.match_current_line("say hello"))
+
+    def test_end_anchor(self):
+        engine = RegexEngine("world$")
+        self.assertTrue(engine.match_current_line("hello world"))
+        self.assertFalse(engine.match_current_line("worldwide"))
+
+    def test_both_anchors(self):
+        engine = RegexEngine("^hello$")
+        self.assertTrue(engine.match_current_line("hello"))
+        self.assertFalse(engine.match_current_line("hello world"))
+        self.assertFalse(engine.match_current_line(" say hello"))
+
+    def test_anchor_with_wildcard(self):
+        engine = RegexEngine("^h.llo$")
+        self.assertTrue(engine.match_current_line("hello"))
+        self.assertTrue(engine.match_current_line("hallo"))
+        self.assertFalse(engine.match_current_line("helloo"))
+
 if __name__ == "__main__":
     unittest.main()
