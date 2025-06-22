@@ -8,7 +8,7 @@ class TestRegexEngine(unittest.TestCase):
 
     def test_no_match(self):
         engine = RegexEngine("no-basic")
-        self.assertTrue(engine.match_current_line("this is not a basic test"))
+        self.assertFalse(engine.match_current_line("this is not a basic test"))
 
     def test_empty_pattern(self):
         engine = RegexEngine("")
@@ -20,7 +20,7 @@ class TestRegexEngine(unittest.TestCase):
 
     def test_wildcard_match(self):
         engine = RegexEngine("a.c")
-        self.assertTrue(engine.match_at_position("a9c"), 0)
+        self.assertTrue(engine.match_current_line("match a9c here"))
 
     def test_start_anchor(self):
         engine = RegexEngine("^hello")
