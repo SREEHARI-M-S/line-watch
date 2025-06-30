@@ -34,7 +34,7 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pytest --cov=line-watch --cov-report=term-missing
+        pytest --cov=line_watch --cov-report=term-missing
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
