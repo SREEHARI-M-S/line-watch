@@ -23,11 +23,6 @@ class TestRegexEngine(unittest.TestCase):
         engine = RegexEngine("basic")
         self.assertTrue(engine.match_current_line("this is another basic test"))
 
-    def test_should_match_with_dot_wildcard(self):
-        engine = RegexEngine("a.c")
-        self.assertTrue(engine.match_current_line("look at a9c happening here"))
-        self.assertFalse(engine.match_current_line("no match for abcde"))
-
     def test_should_match_start_anchor(self):
         engine = RegexEngine("^hello")
         self.assertTrue(engine.match_current_line("hello world"))
@@ -54,10 +49,16 @@ class TestRegexEngine(unittest.TestCase):
         engine = RegexEngine("superlongpattern")
         self.assertFalse(engine.match_current_line("short"))
 
+    def test_should_match_with_dot_wildcard(self):
+        engine = RegexEngine("a.c")
+        self.assertTrue(engine.match_current_line("look at a9c happening here"))
+        self.assertTrue(engine.match_current_line("no match for abcde"))  # Fixed
+
     def test_wildcard_at_end(self):
         engine = RegexEngine("en.")
         self.assertTrue(engine.match_current_line("open file"))
-        self.assertFalse(engine.match_current_line("openness"))
+        self.assertTrue(engine.match_current_line("openness"))  # Fixed
+
 
 if __name__ == "__main__":
     unittest.main()
