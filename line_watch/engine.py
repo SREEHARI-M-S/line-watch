@@ -27,7 +27,10 @@ class RegexEngine:
                 if quant == '*':
                     t_idx = self._match_star(pattern[p_idx], text, t_idx)
                 elif quant == '+':
-                    t_idx = self._match_plus(pattern[p_idx], text, t_idx)
+                    new_idx = self._match_plus(pattern[p_idx], text, t_idx)
+                    if new_idx == -1:
+                        return False
+                    t_idx = new_idx
                 elif quant == '?':
                     t_idx = self._match_question(pattern[p_idx], text, t_idx)
                 p_idx += 2
@@ -37,7 +40,8 @@ class RegexEngine:
                 p_idx += 1
                 t_idx += 1
 
-        return t_idx <= len(text)
+        return True 
+
 
     def _match_star(self, char: str, text: str, t_idx: int) -> int:
         while t_idx < len(text) and (char == '.' or text[t_idx] == char):
@@ -69,7 +73,7 @@ class RegexEngine:
         core_pattern = self.pattern[core_start:core_end]
 
         if starts_with_caret and ends_with_dollar:
-            return self._match_at(text, core_pattern, 0) and len(core_pattern) <= len(text)
+            return self._match_at(text, core_pattern, 0) and len(core_pattern) == len(text)
 
         if starts_with_caret:
             return self._match_at(text, core_pattern, 0)
@@ -79,3 +83,4 @@ class RegexEngine:
             return self._match_at(text, core_pattern, start) if start >= 0 else False
 
         return False
+
