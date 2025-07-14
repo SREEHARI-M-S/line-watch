@@ -52,13 +52,31 @@ class TestRegexEngine(unittest.TestCase):
     def test_should_match_with_dot_wildcard(self):
         engine = RegexEngine("a.c")
         self.assertTrue(engine.match_current_line("look at a9c happening here"))
-        self.assertTrue(engine.match_current_line("no match for abcde"))  # Fixed
+        self.assertTrue(engine.match_current_line("no match for abcde"))
 
     def test_wildcard_at_end(self):
         engine = RegexEngine("en.")
         self.assertTrue(engine.match_current_line("open file"))
-        self.assertTrue(engine.match_current_line("openness"))  # Fixed
+        self.assertTrue(engine.match_current_line("openness"))
 
+    def test_star_quantifier(self):
+        engine = RegexEngine("ab*c")
+        self.assertTrue(engine.match_current_line("abc"))
+        self.assertTrue(engine.match_current_line("ac"))
+        self.assertTrue(engine.match_current_line("abbbbbc"))
+        self.assertFalse(engine.match_current_line("ab"))
+
+    def test_plus_quantifier(self):
+        engine = RegexEngine("ab+c")
+        self.assertTrue(engine.match_current_line("abc"))
+        self.assertTrue(engine.match_current_line("abbbbbc"))
+        self.assertFalse(engine.match_current_line("ac"))
+
+    def test_question_quantifier(self):
+        engine = RegexEngine("ab?c")
+        self.assertTrue(engine.match_current_line("abc"))
+        self.assertTrue(engine.match_current_line("ac"))
+        self.assertFalse(engine.match_current_line("abbc"))
 
 if __name__ == "__main__":
     unittest.main()
