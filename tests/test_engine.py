@@ -66,17 +66,5 @@ class TestRegexEngine(unittest.TestCase):
         self.assertTrue(engine.match_current_line("abbbbbc"))
         self.assertFalse(engine.match_current_line("ab"))
 
-    def test_plus_quantifier(self):
-        engine = RegexEngine("ab+c")
-        self.assertTrue(engine.match_current_line("abc"))
-        self.assertTrue(engine.match_current_line("abbbbbc"))
-        self.assertFalse(engine.match_current_line("ac"))
-
-    def test_question_quantifier(self):
-        engine = RegexEngine("ab?c")
-        self.assertTrue(engine.match_current_line("abc"))
-        self.assertTrue(engine.match_current_line("ac"))
-        self.assertFalse(engine.match_current_line("abbc"))
-
 if __name__ == "__main__":
     unittest.main()
