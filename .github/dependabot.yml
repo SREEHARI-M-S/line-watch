@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - SREEHARI-M-S
     commit-message:
       prefix: "deps"
     open-pull-requests-limit: 5
@@ -18,5 +20,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - SREEHARI-M-S
     commit-message:
       prefix: "gh-actions"
