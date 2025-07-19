@@ -40,12 +40,11 @@ jobs:
       run: |
          pytest --cov --cov-branch --cov-report=xml
     
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
       with:
-        slug: sreehari-m-s/line-watch
-        files: coverage.xml
-        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: SREEHARI-M-S/line-watch
         
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
