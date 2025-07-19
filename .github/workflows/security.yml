@@ -38,7 +38,7 @@ jobs:
       env:
         PYTHONPATH: .
       run: |
-        pytest --cov=line_watch --cov-report=xml --cov-report=term-missing
+         pytest --cov --cov-branch --cov-report=xml
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
