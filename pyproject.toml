@@ -1,0 +1,18 @@
+[project]
+name = "line-watch"
+version = "1.0.0"
+description = "A lightweight CLI regex line matcher"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+  { name="Sreehari", email="sreeharimsofficial@gmail.com" }
+]
+dependencies = []
+
+[project.scripts]
+lw = "line_watch.cli:entry_point"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

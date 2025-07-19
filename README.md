@@ -1,6 +1,10 @@
 
 # Line-watch: A Custom Regular Expression Engine (CLI Utility)
 
+[![PyPI version](https://img.shields.io/pypi/v/line-watch)](https://pypi.org/project/line-watch/)
+[![Python](https://img.shields.io/pypi/pyversions/line-watch)](https://pypi.org/project/line-watch/)
+[![License](https://img.shields.io/github/license/SREEHARI-M-S/line-watch)](LICENSE)
+
 ## 🚀 Project Overview
 
 Line-watch is a versatile command-line interface (CLI) utility, developed in Python to emulate and expand upon the core functionalities of tools like `grep`. What makes Line-watch unique is its **entirely custom-built regular expression engine**. This project was an engaging exploration into fundamental computer science concepts, including **compiler design principles, lexical analysis, parsing techniques, and finite automata theory**, aiming to build a self-contained and efficient solution for text pattern matching.
