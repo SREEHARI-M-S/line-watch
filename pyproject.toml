@@ -1,6 +1,6 @@
 [project]
 name = "line-watch"
-version = "1.0.1"
+version = "1.0.2"
 description = "A lightweight CLI regex line matcher"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -27,3 +27,8 @@ lw = "line_watch.cli:entry_point"
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/SREEHARI-M-S/line-watch"
+Repository = "https://github.com/SREEHARI-M-S/line-watch"
+Issues = "https://github.com/SREEHARI-M-S/line-watch/issues"
