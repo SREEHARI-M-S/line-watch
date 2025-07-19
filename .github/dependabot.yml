@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - SREEHARI-M-S
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5
+    rebase-strategy: auto
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      - dependency-name: "pytest"
+        versions: ["<7"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - SREEHARI-M-S
+    commit-message:
+      prefix: "gh-actions"
