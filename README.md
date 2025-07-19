@@ -3,7 +3,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/line-watch)](https://pypi.org/project/line-watch/)
 [![Python](https://img.shields.io/pypi/pyversions/line-watch)](https://pypi.org/project/line-watch/)
-[![License](https://img.shields.io/github/license/yourusername/line-watch)](LICENSE)
+[![License](https://img.shields.io/github/license/SREEHARI-M-S/line-watch)](LICENSE)
 
 ## 🚀 Project Overview
 
