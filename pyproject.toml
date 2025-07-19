@@ -1,6 +1,6 @@
 [project]
 name = "line-watch"
-version = "1.0.0"
+version = "1.0.1"
 description = "A lightweight CLI regex line matcher"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -9,6 +9,17 @@ authors = [
   { name="Sreehari", email="sreeharimsofficial@gmail.com" }
 ]
 dependencies = []
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
 
 [project.scripts]
 lw = "line_watch.cli:entry_point"

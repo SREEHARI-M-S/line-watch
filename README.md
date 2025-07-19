@@ -3,7 +3,6 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/line-watch)](https://pypi.org/project/line-watch/)
 [![Python](https://img.shields.io/pypi/pyversions/line-watch)](https://pypi.org/project/line-watch/)
-[![License](https://img.shields.io/github/license/SREEHARI-M-S/line-watch)](LICENSE)
 [![CI](https://github.com/SREEHARI-M-S/line-watch/actions/workflows/security.yml/badge.svg)](https://github.com/SREEHARI-M-S/line-watch/actions/workflows/security.yml)
 [![codecov](https://codecov.io/gh/SREEHARI-M-S/line-watch/branch/main/graph/badge.svg)](https://codecov.io/gh/SREEHARI-M-S/line-watch)
 
