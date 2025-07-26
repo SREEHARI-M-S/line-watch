@@ -66,5 +66,29 @@ class TestRegexEngine(unittest.TestCase):
         self.assertTrue(engine.match_current_line("abbbbbc"))
         self.assertFalse(engine.match_current_line("ab"))
 
+    def test_should_match_character_class(self):
+        engine = RegexEngine("h[ae]llo")
+        self.assertTrue(engine.match_current_line("hello"))
+        self.assertTrue(engine.match_current_line("hallo"))
+        self.assertFalse(engine.match_current_line("hollo"))
+
+    def test_character_class_with_quantifiers(self):
+        engine = RegexEngine("a[xy]*z")
+        self.assertTrue(engine.match_current_line("az"))
+        self.assertTrue(engine.match_current_line("axyxz"))
+        self.assertFalse(engine.match_current_line("abz"))
+
+    def test_multiple_character_classes(self):
+        engine = RegexEngine("[ch]at")
+        self.assertTrue(engine.match_current_line("cat"))
+        self.assertTrue(engine.match_current_line("hat"))
+        self.assertFalse(engine.match_current_line("bat"))
+
+    def test_character_class_with_dot(self):
+        engine = RegexEngine("c[aeiou].")
+        self.assertTrue(engine.match_current_line("catch"))
+        self.assertTrue(engine.match_current_line("coin"))
+        self.assertFalse(engine.match_current_line("crrn"))
+
 if __name__ == "__main__":
     unittest.main()
