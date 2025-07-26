@@ -85,33 +85,33 @@ class RegexEngine:
 
         return False
 
-def _get_unit(self, pattern: str, idx: int) -> tuple:
-    if pattern[idx] == '[':
-        closing = pattern.find(']', idx)
-        if closing == -1:
-            raise ValueError("Unclosed character class")
-        return pattern[idx:closing + 1], closing
-    return pattern[idx], idx
+    def _get_unit(self, pattern: str, idx: int) -> tuple:
+        if pattern[idx] == '[':
+            closing = pattern.find(']', idx)
+            if closing == -1:
+                raise ValueError(f"Unclosed character class at index {idx} in pattern: '{pattern}'")
+            return pattern[idx:closing + 1], closing
+        return pattern[idx], idx
 
-def _char_matches_unit(self, unit: str, char: str) -> bool:
-    if unit.startswith('[') and unit.endswith(']'):
-        return char in unit[1:-1]
-    return unit == '.' or unit == char
+    def _char_matches_unit(self, unit: str, char: str) -> bool:
+        if unit.startswith('[') and unit.endswith(']'):
+            return char in unit[1:-1]
+        return unit == '.' or unit == char
 
-def _match_quant_star(self, unit: str, text: str, t_idx: int) -> int:
-    while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+    def _match_quant_star(self, unit: str, text: str, t_idx: int) -> int:
+        while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            t_idx += 1
+        return t_idx
+
+    def _match_quant_plus(self, unit: str, text: str, t_idx: int) -> int:
+        if t_idx >= len(text) or not self._char_matches_unit(unit, text[t_idx]):
+            return -1
         t_idx += 1
-    return t_idx
+        while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            t_idx += 1
+        return t_idx
 
-def _match_quant_plus(self, unit: str, text: str, t_idx: int) -> int:
-    if t_idx >= len(text) or not self._char_matches_unit(unit, text[t_idx]):
-        return -1
-    t_idx += 1
-    while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
-        t_idx += 1
-    return t_idx
-
-def _match_quant_question(self, unit: str, text: str, t_idx: int) -> int:
-    if t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
-        return t_idx + 1
-    return t_idx
+    def _match_quant_question(self, unit: str, text: str, t_idx: int) -> int:
+        if t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            return t_idx + 1
+        return t_idx
