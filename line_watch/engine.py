@@ -24,24 +24,25 @@ class RegexEngine:
 
             if p_idx + 1 < len(pattern) and pattern[p_idx + 1] in '*+?':
                 quant = pattern[p_idx + 1]
+                unit, next_p_idx = self._get_unit(pattern, p_idx)
                 if quant == '*':
-                    t_idx = self._match_star(pattern[p_idx], text, t_idx)
+                    t_idx = self._match_quant_star(unit, text, t_idx)
                 elif quant == '+':
-                    new_idx = self._match_plus(pattern[p_idx], text, t_idx)
+                    new_idx = self._match_quant_plus(unit, text, t_idx)
                     if new_idx == -1:
                         return False
                     t_idx = new_idx
                 elif quant == '?':
-                    t_idx = self._match_question(pattern[p_idx], text, t_idx)
-                p_idx += 2
+                    t_idx = self._match_quant_question(unit, text, t_idx)
+                p_idx = next_p_idx + 1
             else:
-                if t_idx >= len(text) or (pattern[p_idx] != '.' and pattern[p_idx] != text[t_idx]):
+                unit, next_p_idx = self._get_unit(pattern, p_idx)
+                if t_idx >= len(text) or not self._char_matches_unit(unit, text[t_idx]):
                     return False
-                p_idx += 1
                 t_idx += 1
+                p_idx = next_p_idx + 1
 
-        return True 
-
+        return t_idx <= len(text)
 
     def _match_star(self, char: str, text: str, t_idx: int) -> int:
         while t_idx < len(text) and (char == '.' or text[t_idx] == char):
@@ -84,3 +85,35 @@ class RegexEngine:
 
         return False
 
+    def _get_unit(self, pattern: str, idx: int) -> tuple:
+        if pattern[idx] == '[':
+            closing = pattern.find(']', idx)
+            if closing == -1:
+                raise ValueError(f"Unclosed character class at index {idx} in pattern: '{pattern}'")
+            return pattern[idx:closing + 1], closing
+        return pattern[idx], idx
+
+    def _char_matches_unit(self, unit: str, char: str) -> bool:
+        if unit.startswith('[') and unit.endswith(']'):
+            if unit[1] == '^': 
+                return char not in unit[2:-1]
+            return char in unit[1:-1]
+        return unit == '.' or unit == char
+
+    def _match_quant_star(self, unit: str, text: str, t_idx: int) -> int:
+        while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            t_idx += 1
+        return t_idx
+
+    def _match_quant_plus(self, unit: str, text: str, t_idx: int) -> int:
+        if t_idx >= len(text) or not self._char_matches_unit(unit, text[t_idx]):
+            return -1
+        t_idx += 1
+        while t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            t_idx += 1
+        return t_idx
+
+    def _match_quant_question(self, unit: str, text: str, t_idx: int) -> int:
+        if t_idx < len(text) and self._char_matches_unit(unit, text[t_idx]):
+            return t_idx + 1
+        return t_idx
