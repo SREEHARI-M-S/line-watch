@@ -95,6 +95,8 @@ class RegexEngine:
 
     def _char_matches_unit(self, unit: str, char: str) -> bool:
         if unit.startswith('[') and unit.endswith(']'):
+            if unit[1] == '^': 
+                return char not in unit[2:-1]
             return char in unit[1:-1]
         return unit == '.' or unit == char
 
